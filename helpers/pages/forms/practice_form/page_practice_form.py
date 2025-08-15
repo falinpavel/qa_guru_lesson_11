@@ -69,7 +69,7 @@ class PracticeFormPage:
         with allure.step("Filling #city field"):
             browser.element('#city').click().all('[tabindex="-1"]').element_by(have.text(self.user.city)).click()
         with allure.step("Click on #submit button"):
-            browser.element('#submit').perform(command.js.scroll_into_view).click()
+            browser.element('#submit').perform(command.js.scroll_into_view)
             browser.element('#submit').should(be.visible).click()
         return self
 
