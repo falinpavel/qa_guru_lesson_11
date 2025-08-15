@@ -7,8 +7,8 @@ from selenium import webdriver
 from const import RESOURCES_DIR
 
 
-@pytest.fixture(scope="function")
-def browser_options():
+@pytest.fixture(scope="function", autouse=True)
+def browser_options() -> Browser:
     driver_options = webdriver.ChromeOptions()
     driver_options.page_load_strategy = 'eager'
     driver_options.add_argument("--disable-gpu")
@@ -37,15 +37,21 @@ def browser_options():
     }
     driver_options.capabilities.update(selenoid_capabilities)
     driver_options.add_experimental_option("prefs", prefs)
-    return driver_options
-
-
-@pytest.fixture(scope="function", autouse=True)
-def browser_open_and_quit(browser_options):
     driver = webdriver.Remote(
         command_executor="https://user1:1234@selenoid.autotests.cloud/wd/hub",
-        options=browser_options
+        options=driver_options
     )
-    browser = Browser(Config(driver=driver))
+    browser: Browser = Browser(Config(driver=driver))
     yield
     browser.quit()
+
+
+# @pytest.fixture(scope="function", autouse=True)
+# def browser_open_and_quit(browser_options):
+#     driver = webdriver.Remote(
+#         command_executor="https://user1:1234@selenoid.autotests.cloud/wd/hub",
+#         options=browser_options
+#     )
+#     browser = Browser(Config(driver=driver))
+#     yield
+#     browser
