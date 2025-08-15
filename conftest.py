@@ -45,7 +45,7 @@ def browser_options():
     browser.config.driver = driver
     yield
     attach.add_screenshot(browser=browser)
-    # attach.add_logs(browser=browser)
+    attach.add_logs(browser=browser)
     attach.add_html(browser=browser)
     attach.add_video(browser=browser)
     browser.quit()
