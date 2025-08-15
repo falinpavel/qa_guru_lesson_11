@@ -1,4 +1,5 @@
 import pytest
+from selene import Browser, Config
 
 from selene.support.shared import browser
 from selenium import webdriver
@@ -26,12 +27,25 @@ def browser_options():
         "download.prompt_for_download": False,
         "safebrowsing.enabled": True
     }
+    selenoid_capabilities = {
+        "browserName": "chrome",
+        "browserVersion": "",
+        "selenoid:options": {
+            "enableVNC": True,
+            "enableVideo": True
+        }
+    }
+    driver_options.capabilities.update(selenoid_capabilities)
     driver_options.add_experimental_option("prefs", prefs)
     return driver_options
 
 
 @pytest.fixture(scope="function", autouse=True)
 def browser_open_and_quit(browser_options):
-    browser.config.driver_options = browser_options
+    driver = webdriver.Remote(
+        command_executor="https://user1:1234@selenoid.autotests.cloud/wd/hub",
+        options=browser_options
+    )
+    browser = Browser(Config(driver=driver))
     yield
     browser.quit()
