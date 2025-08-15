@@ -46,5 +46,6 @@ def browser_open_and_quit(browser_options):
         options=browser_options
     )
     browser.config.driver = driver
-    yield browser.quit()
+    yield browser
+    browser.quit()
 
