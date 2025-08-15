@@ -27,6 +27,7 @@ def browser_options() -> Browser:
         "download.prompt_for_download": False,
         "safebrowsing.enabled": True
     }
+    driver_options.add_experimental_option("prefs", prefs)
     selenoid_capabilities = {
         "browserName": "chrome",
         "browserVersion": "128.0",
@@ -36,15 +37,12 @@ def browser_options() -> Browser:
         }
     }
     driver_options.capabilities.update(selenoid_capabilities)
-    driver_options.add_experimental_option("prefs", prefs)
     driver = webdriver.Remote(
         command_executor="https://user1:1234@selenoid.autotests.cloud/wd/hub",
         options=driver_options
     )
-    browser: Browser = Browser(Config(driver=driver))
-    yield
-    browser.quit()
-
+    browser = Browser(Config(driver=driver))
+    yield browser.quit()
 
 # @pytest.fixture(scope="function", autouse=True)
 # def browser_open_and_quit(browser_options):
