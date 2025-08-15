@@ -29,7 +29,7 @@ def browser_options():
     }
     selenoid_capabilities = {
         "browserName": "chrome",
-        "browserVersion": "",
+        "browserVersion": "128.0",
         "selenoid:options": {
             "enableVNC": True,
             "enableVideo": True
