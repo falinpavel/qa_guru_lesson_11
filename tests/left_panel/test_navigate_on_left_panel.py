@@ -4,13 +4,14 @@ import allure
 
 @allure.epic('Left Panel')
 @allure.feature('Navigate on Left Panel')
+@allure.suite('Tests navigate on Left Panel')
 class TestNavigateOnLeftPanel:
 
     @allure.title('Navigate to all sections')
     @allure.severity(allure.severity_level.CRITICAL)
     @allure.id('1')
     @allure.label('owner', 'Falin Pavel')
-    @allure.label('category', 'UI')
+    @allure.tag('UI')
     @allure.link('https://demoqa.com/forms', name='Forms')
     @allure.description('Check that left panel is clickable, navigate to all sections')
     def test_left_panel_group_is_clickable(self):
@@ -27,7 +28,7 @@ class TestNavigateOnLeftPanel:
     @allure.severity(allure.severity_level.NORMAL)
     @allure.id('2')
     @allure.label('owner', 'Falin Pavel')
-    @allure.label('category', 'UI')
+    @allure.tag('UI')
     @allure.link('https://demoqa.com/text-box', name='Text Box')
     @allure.description('Navigate to Text Box page from Practice Form page and check that it is opened')
     def test_go_to_text_box_page(self):
