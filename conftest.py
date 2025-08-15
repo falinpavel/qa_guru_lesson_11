@@ -4,6 +4,7 @@ from selene.support.shared import browser
 from selenium import webdriver
 
 from const import RESOURCES_DIR
+from utils import attach
 
 
 @pytest.fixture(scope="function")
@@ -47,5 +48,9 @@ def browser_open_and_quit(browser_options):
     )
     browser.config.driver = driver
     yield browser
+    attach.add_screenshot(browser)
+    attach.add_logs(browser)
+    attach.add_html(browser)
+    attach.add_video(browser)
     browser.quit()
 
