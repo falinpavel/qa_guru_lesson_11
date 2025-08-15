@@ -34,7 +34,8 @@ def browser_options():
         "browserVersion": "128.0",
         "selenoid:options": {
             "enableVNC": True,
-            "enableVideo": True
+            "enableVideo": True,
+            "enableLog": True
         }
     }
     driver_options.capabilities.update(selenoid_capabilities)
