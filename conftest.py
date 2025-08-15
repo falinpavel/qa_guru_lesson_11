@@ -50,19 +50,3 @@ def browser_options():
     attach.add_html(browser=browser)
     attach.add_video(browser=browser)
     browser.quit()
-
-#
-# @pytest.fixture(scope="function", autouse=True)
-# def browser_open_and_quit(browser_options):
-#     driver = webdriver.Remote(
-#         command_executor="https://user1:1234@selenoid.autotests.cloud/wd/hub",
-#         options=browser_options
-#     )
-#     browser.config.driver = driver
-#     yield
-#     attach.add_screenshot(browser)
-#     attach.add_logs(browser)
-#     attach.add_html(browser)
-#     attach.add_video(browser)
-#     browser.quit()
-#
