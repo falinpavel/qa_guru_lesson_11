@@ -1,6 +1,6 @@
 import random
-from dataclasses import dataclass
 
+from dataclasses import dataclass
 from faker import Faker
 
 fake = Faker('ru_RU')

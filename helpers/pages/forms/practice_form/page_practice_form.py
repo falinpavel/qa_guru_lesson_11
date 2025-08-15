@@ -1,11 +1,11 @@
-from datetime import datetime
-
 import allure
+
+from datetime import datetime
 from selene import browser, be, have, command
 from selene.core.condition import Condition
 
-from helpers.config.links import Links
 from const import UPLOADED_FILE
+from helpers.config.links import Links
 from helpers.data.user_info import PracticeFormUserGenerator
 
 

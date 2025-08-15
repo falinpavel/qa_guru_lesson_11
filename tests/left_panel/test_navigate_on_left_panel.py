@@ -1,5 +1,6 @@
-from helpers.application_manager.application_manager import demoqa
 import allure
+
+from helpers.application_manager.application_manager import demoqa
 
 
 @allure.epic('Left Panel')

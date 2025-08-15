@@ -1,4 +1,5 @@
 import allure
+
 from selene import browser, command, be
 
 from helpers.config.links import Links
