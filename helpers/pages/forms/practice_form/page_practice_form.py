@@ -132,8 +132,8 @@ class PracticeFormPage:
     @allure.step("Check that form not filled and not submitted")
     def form_not_filled_and_not_submitted(self) -> 'PracticeFormPage':
         with allure.step("Click on #submit button"):
-            browser.element('#submit').click()
-            # browser.element('.modal-title').should(have.text('Thanks for submitting the form'))
+            browser.element('#submit').perform(command.js.scroll_into_view)
+            browser.element('#submit').should(be.visible).should(be.clickable).click()
         with allure.step("Check that form not filled and not submitted, elements not present"):
             browser.element('.modal-title').should(be.not_.present)
         return self
