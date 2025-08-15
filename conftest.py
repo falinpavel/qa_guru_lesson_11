@@ -47,7 +47,7 @@ def browser_open_and_quit(browser_options):
         options=browser_options
     )
     browser.config.driver = driver
-    yield browser
+    yield
     attach.add_screenshot(browser=browser)
     attach.add_logs(browser=browser)
     attach.add_html(browser=browser)
