@@ -11,7 +11,7 @@ from const import RESOURCES_DIR, DEFAULT_BROWSER_VERSION
 from utils import attach
 
 
-def pytest_add_option(parser):
+def pytest_addoption(parser):
     parser.addoption(
         '--browser_version', default=DEFAULT_BROWSER_VERSION,
         help=f"Choose browser version (default: {DEFAULT_BROWSER_VERSION})"
