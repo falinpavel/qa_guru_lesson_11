@@ -1,15 +1,30 @@
+import os
+
 import pytest
 
+from dotenv import load_dotenv
 from selene import browser
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
-from const import RESOURCES_DIR
+from const import RESOURCES_DIR, DEFAULT_BROWSER_VERSION
 from utils import attach
 
 
+def pytest_add_option(parser):
+    parser.addoption(
+        '--browser_version', default=DEFAULT_BROWSER_VERSION,
+        help=f"Choose browser version (default: {DEFAULT_BROWSER_VERSION})"
+    )
+
+
+@pytest.fixture(scope="session", autouse=True)
+def load_environment():
+    load_dotenv()
+
+
 @pytest.fixture(scope="function", autouse=True)
-def browser_options():
+def browser_options(request):
     driver_options = Options()
     driver_options.page_load_strategy = 'eager'
     driver_options.add_argument("--disable-gpu")
@@ -28,10 +43,12 @@ def browser_options():
         "download.prompt_for_download": False,
         "safebrowsing.enabled": True
     }
-    driver_options.add_experimental_option("prefs", prefs)
+    driver_options.add_experimental_option(name="prefs", value=prefs)
+    browser_version = request.config.getoption("--browser_version")
+    browser_version = browser_version if browser_version else DEFAULT_BROWSER_VERSION
     selenoid_capabilities = {
         "browserName": "chrome",
-        "browserVersion": "128.0",
+        "browserVersion": browser_version,
         "selenoid:options": {
             "enableVNC": True,
             "enableVideo": True,
@@ -40,7 +57,7 @@ def browser_options():
     }
     driver_options.capabilities.update(selenoid_capabilities)
     driver = webdriver.Remote(
-        command_executor="https://user1:1234@selenoid.autotests.cloud/wd/hub",
+        command_executor=f"https://{os.getenv('LOGIN')}:{os.getenv('PASSWORD')}@selenoid.autotests.cloud/wd/hub",
         options=driver_options
     )
     browser.config.driver = driver
