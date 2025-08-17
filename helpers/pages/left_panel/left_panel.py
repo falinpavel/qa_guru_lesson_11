@@ -1,6 +1,6 @@
 import allure
 
-from selene import browser, command, be
+from selene import browser, command, be, have
 
 from helpers.config.links import Links
 
@@ -42,7 +42,8 @@ class LeftPanel:
     @allure.step("Click to Interactions group")
     def click_to_interactions(self):
         browser.element('//*[contains(@class, "header-text")][contains(text(), "Interactions")]').perform(
-            command.js.scroll_into_view).should(be.visible).should(be.clickable).click()
+            command.js.scroll_into_view).should(be.visible).should(be.clickable).should(
+            have.text("Interactions")).click()
         return self
 
     @allure.step("Click to Book Store Application group")
