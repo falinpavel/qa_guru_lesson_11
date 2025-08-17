@@ -4,7 +4,7 @@ from datetime import datetime
 from selene import browser, be, have, command
 from selene.core.condition import Condition
 
-from const import UPLOADED_FILE
+from const import Const
 from helpers.config.links import Links
 from helpers.data.user_info import PracticeFormUserGenerator
 
@@ -51,7 +51,7 @@ class PracticeFormPage:
             browser.element('[class=react-datepicker__month][role="listbox"]').should(
                 be.visible).all('div[role="option"]').element_by(have.text(self.user.birth_day)).click()
             browser.element('#dateOfBirthInput').should(Condition.by_and(have.attribute("value").value(
-                f'{int(self.user.birth_day):02d} {self.user.birth_month[:3]} {self.user.birth_year}'))) # TODO! Optimize
+                f'{int(self.user.birth_day):02d} {self.user.birth_month[:3]} {self.user.birth_year}')))  # TODO!Optimize
         with allure.step("Filling #subjects field"):
             for subject in self.user.subjects:
                 browser.element('#subjectsInput').should(be.visible).type(subject).press_enter()
@@ -60,10 +60,11 @@ class PracticeFormPage:
                 browser.all('label[class="custom-control-label"]').element_by(
                     have.text(hobby)).should(be.visible).click().should(be.enabled)
         with allure.step("Filling #uploadPicture field"):
-            browser.element('#uploadPicture').perform(command.js.scroll_into_view).send_keys(UPLOADED_FILE)
+            browser.element('#uploadPicture').perform(command.js.scroll_into_view).send_keys(Const.UPLOADED_FILE)
         with allure.step("Filling #currentAddress field"):
-            browser.element('#currentAddress').should(be.visible).should(be.blank).type(self.user.current_address).should(
-                be.not_.blank).should(have.attribute("value").value(self.user.current_address))
+            browser.element('#currentAddress').should(be.visible).should(
+                be.blank).type(self.user.current_address).should(be.not_.blank).should(
+                have.attribute("value").value(self.user.current_address))
         with allure.step("Filling #state field"):
             browser.element('#state').click().all('[tabindex="-1"]').element_by(have.text(self.user.state)).click()
         with allure.step("Filling #city field"):
@@ -117,7 +118,8 @@ class PracticeFormPage:
         browser.element('#lastName').should(have.attribute('placeholder').value('Last Name'))
         browser.element('#genterWrapper').should(have.text('Gender'))
         browser.all('.custom-radio').should(have.size(3)).should(have.exact_texts('Male', 'Female', 'Other'))
-        browser.element('#userNumber-label').should(have.text('Mobile')).element('small').should(have.text('(10 Digits)'))
+        browser.element('#userNumber-label').should(
+            have.text('Mobile')).element('small').should(have.text('(10 Digits)'))
         browser.element('#userNumber').should(have.attribute('placeholder').value('Mobile Number'))
         browser.element('#dateOfBirth-label').should(have.text('Date of Birth'))
         browser.element('#dateOfBirthInput').should(have.attribute('value').value(datetime.now().strftime('%d %b %Y')))

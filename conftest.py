@@ -1,5 +1,4 @@
 import os
-
 import pytest
 
 from dotenv import load_dotenv
@@ -7,14 +6,14 @@ from selene import browser
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
-from const import RESOURCES_DIR, DEFAULT_BROWSER_VERSION
+from const import Const
 from utils import attach
 
 
 def pytest_addoption(parser):
     parser.addoption(
-        '--browser_version', default=DEFAULT_BROWSER_VERSION,
-        help=f"Choose browser version (default: {DEFAULT_BROWSER_VERSION})"
+        '--browser_version', default=Const.DEFAULT_BROWSER_VERSION,
+        help=f"Choose browser version (default: {Const.DEFAULT_BROWSER_VERSION})"
     )
 
 
@@ -39,13 +38,13 @@ def browser_options(request):
         "profile.default_content_setting_values.notifications": 2,
         "credentials_enable_service": False,
         "profile.password_manager_enabled": False,
-        "download.default_directory": RESOURCES_DIR,
+        "download.default_directory": Const.RESOURCES_DIR,
         "download.prompt_for_download": False,
         "safebrowsing.enabled": True
     }
     driver_options.add_experimental_option(name="prefs", value=prefs)
     browser_version = request.config.getoption("--browser_version")
-    browser_version = browser_version if browser_version else DEFAULT_BROWSER_VERSION
+    browser_version = browser_version if browser_version else Const.DEFAULT_BROWSER_VERSION
     selenoid_capabilities = {
         "browserName": "chrome",
         "browserVersion": browser_version,
