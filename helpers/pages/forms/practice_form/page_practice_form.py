@@ -59,8 +59,8 @@ class PracticeFormPage:
             for hobby in self.user.hobbies:
                 # browser.all('label[class="custom-control-label"]').element_by(
                 #     have.text(hobby)).should(be.visible).should(be.clickable).click().should(be.enabled)
-                browser.element('#hobbiesWrapper').should(
-                    be.visible).element(by.text(hobby)).should(be.clickable).click().should(be.enabled)
+                browser.element('//*[@id="hobbiesWrapper"]/div[2]').should(
+                    be.visible).element(have.text(hobby)).should(be.clickable).click().should(be.enabled)
         with allure.step("Filling #uploadPicture field"):
             browser.element('#uploadPicture').perform(command.js.scroll_into_view).send_keys(Const.UPLOADED_FILE)
         with allure.step("Filling #currentAddress field"):
