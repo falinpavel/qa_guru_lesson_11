@@ -10,7 +10,7 @@ class LeftPanel:
     URL = Links.FORMS
 
     @allure.step("Open Left Panel page")
-    def open_page(self):
+    def open(self):
         with allure.step(f"Open {self.URL}"):
             browser.open(self.URL)
         return self

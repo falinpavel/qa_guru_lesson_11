@@ -16,7 +16,7 @@ class TestNavigateOnLeftPanel:
     @allure.link('https://demoqa.com/forms', name='Forms')
     @allure.description('Check that left panel is clickable, navigate to all sections')
     def test_left_panel_group_is_clickable(self):
-        demoqa.page_practice_form.open_page()
+        demoqa.page_practice_form.open()
         demoqa.left_panel.click_to_forms()
         demoqa.left_panel.click_to_elements()
         demoqa.left_panel.click_to_forms()
@@ -33,6 +33,6 @@ class TestNavigateOnLeftPanel:
     @allure.link('https://demoqa.com/text-box', name='Text Box')
     @allure.description('Navigate to Text Box page from Practice Form page and check that it is opened')
     def test_go_to_text_box_page(self):
-        demoqa.page_practice_form.open_page()
+        demoqa.page_practice_form.open()
         demoqa.left_panel.click_to_forms().click_to_elements()
         demoqa.left_panel_elements.click_to_text_box()

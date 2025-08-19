@@ -20,7 +20,7 @@ class PracticeFormPage:
     user = PracticeFormUserGenerator().get_random_user()
 
     @allure.step("Open Practice Form page")
-    def open_page(self) -> 'PracticeFormPage':
+    def open(self) -> 'PracticeFormPage':
         with allure.step(f"Open {self.URL}"):
             browser.open(self.URL)
         return self
